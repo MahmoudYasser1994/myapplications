@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">دليل الشركات</string>
+    <string name="email">البريد الالكترونى</string>
+    <string name="password">كلمة السر</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="createaccount">انشاء حساب</string>
+    <string name="skip">تخطى الان</string>
+    <string name="forget">هل نسيت كلمة السر ؟ </string>
+    <string name= "username">اسم المستخدم</string>
+    <string name="mobile">رقم الهاتف </string>
+    <string name="confirmpassword">تأكيد كلمة المرور </string>
+    <string name="phone">رقم الهاتف</string>
+    <string name="verify">سيتم ارسال الرمز الى الايميل الخاص بك</string>
+    <string name="send">ارسال</string>
+    <string name="havecode">لديك الكود بالفعل</string>
+    <string name="confirm">تأكيد</string>
+    <string name="enter">أدخل الكود بالأسفل</string>
+    <string name="code">الكود</string>
+    <string name="changepassword">من فضلك قم بتغيير الرقم السرى</string>
+    <string name="newpassword">"كلمة السر الجديدة "</string>
+    <string name="CompanyName">اسم الشركة</string>
+    <string name="CountryName">الدولة</string>
+    <string name="Mohafza">المحافظة</string>
+    <string name="Section">القطاع</string>
+
+
+</resources>

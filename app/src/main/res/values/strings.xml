@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Daleel</string>
+    <string name="email">your email</string>
+    <string name="password">your password</string>
+    <string name="login">sign in</string>
+    <string name="createaccount">sign up</string>
+    <string name="skip">skip now</string>
+    <string name="forget">forgot password</string>
+    <string name="username">user name</string>
+    <string name="mobile">mobile number </string>
+    <string name="confirmpassword">confirm password </string>
+    <string name="phone">phone number </string>
+    <string name="verify">verification code will be sent to your email </string>
+    <string name="send"> send </string>
+    <string name="havecode"> already have code </string>
+    <string name="confirm"> confirm </string>
+    <string name="enter"> enter code </string>
+    <string name="code">  code </string>
+    <string name="changepassword">please change your password</string>
+    <string name="newpassword">new password</string>
+    <string name="CompanyName">Company Name</string>
+    <string name="CountryName">Country</string>
+    <string name="Mohafza">Mohafza</string>
+    <string name="Section">Section Name</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+
+</resources>
