@@ -3,6 +3,7 @@ package com.example.daleel.Fragments.CompanyFragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
@@ -25,16 +26,16 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompaniesDetailsFragment extends Fragment implements ListAllClickListener {
+public class CompaniesDetailsFragment extends Fragment {
 
 
-    @BindViews ({R.id.textViewnamedetails,R.id.textviewcountrydetails,R.id.textviewmohafzadetails,
-            R.id.textviewcitydetails,R.id.textviewzonedetails,R.id.textviewsectiondetails,
-            R.id.textviewtasnifdetails,R.id.textviewaddressdetails,R.id.textviewphonenumberdetails,
-            R.id.textviewresnamedetails,R.id.textviewmobilenumberdetails,R.id.textviewwhatsnumberdetails,
-            R.id.textviewemaildetails})
+    @BindViews ({R.id.companyTV,R.id.countryTV,R.id.mohafzaTV,
+            R.id.cityTV,R.id.zoneTV,R.id.sectionTV,
+            R.id.tasnifTV,R.id.addressTV,R.id.telephoneTV,
+            R.id.resTV,R.id.mobileTV,R.id.whatsTV,
+            R.id.emailTV})
     List<TextView> textList;
-    TextView txtNamedetails,txtCountrydetails,txtMohafzadetails,txtcitydetails,
+    private TextView txtNamedetails,txtCountrydetails,txtMohafzadetails,txtcitydetails,
             txtzonedetails, txtsectiondetails, txttasnifdetails,txtaddressdetails,
             txtphonenumberdetails,txtresnamedetails,txtmobilenumberdetails,
             txtwhatsnumberdetails,txtemaildetails;
@@ -78,11 +79,12 @@ public class CompaniesDetailsFragment extends Fragment implements ListAllClickLi
             compMobilenumber = b.getString ("mobilenumber");
             compWhatsnumber = b.getString ("whats");
             compEmail = b.getString ("email");
+
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.fragment_companies_details, container, false);
         ButterKnife.bind (this,view);
         views ( );
@@ -90,12 +92,7 @@ public class CompaniesDetailsFragment extends Fragment implements ListAllClickLi
 
     }
 
-    @Override
-    public void onItemClick(Datum datumList, int pos) {
-
-    }
-
-    public void views() {
+    private void views() {
 
         txtNamedetails=textList.get (0);
         txtCountrydetails=textList.get (1);

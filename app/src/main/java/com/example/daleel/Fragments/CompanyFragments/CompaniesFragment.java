@@ -9,17 +9,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.daleel.Adapters.CompaniesAdapter;
+import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
 import com.example.daleel.Interfaces.ListAllClickListener;
 import com.example.daleel.Models.CompaniesModel.CompaniesModel;
@@ -32,7 +37,9 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompaniesFragment extends Fragment implements ListAllClickListener {
+public class CompaniesFragment extends Fragment implements ListAllClickListener , SwipeRefreshLayout.OnRefreshListener{
+    @BindView (R.id.swipe)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
@@ -53,6 +60,9 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
     private String compWhatsnumber;
     private String compEmail;
 
+    MyAlertDialog myAlertDialog;
+    AlertDialog alertDialog;
+
 
     public CompaniesFragment() {
         // Required empty public constructor
@@ -62,14 +72,20 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.fragment_companies, container, false);
+        ButterKnife.bind (this,view);
         getdata = new ArrayList<> ( );
         companiesAdapter = new CompaniesAdapter (new ArrayList<Datum> ( ), this);
-        recyclerView = view.findViewById (R.id.recyclerview);
         GridLayoutManager gridLayoutManager = new GridLayoutManager (getActivity ( ), 1);
         recyclerView.setLayoutManager (gridLayoutManager);
         recyclerView.setItemAnimator (new DefaultItemAnimator ( ));
         recyclerView.setAdapter (companiesAdapter);
+        myAlertDialog = new MyAlertDialog (alertDialog);
 
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_blue_dark);
         onCall ( );
         return view;
 
@@ -77,17 +93,20 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
 
     private void onCall() {
 
+
+        myAlertDialog.showDialogue (getActivity ( ));
         Call<CompaniesModel> call = RetrofitInstance.getInstance ( ).getApi ( ).getCompanies ( );
         call.enqueue (new Callback<CompaniesModel> ( ) {
             @Override
             public void onResponse(Call<CompaniesModel> call, Response<CompaniesModel> response) {
 
                 companiesAdapter.replaceData (response.body ( ).getData ( ).getData ( ));
+                myAlertDialog.cancell ( );
             }
 
             @Override
             public void onFailure(Call<CompaniesModel> call, Throwable t) {
-
+                myAlertDialog.cancell ( );
             }
         });
     }
@@ -95,20 +114,20 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
     @Override
     public void onItemClick(Datum datumList, int pos) {
 
-        CompaniesDetailsFragment companiesDetailsFragment = new CompaniesDetailsFragment ();
-         compname = String.valueOf (datumList.getName ( ));
-        compCountry= String.valueOf (datumList.getCountry ().getEnglishName ());
-        compMohafza= String.valueOf (datumList.getMohafza ().getEnglishName ());
-        compCity= String.valueOf (datumList.getCity ().getEnglishName ());
-        compZone= String.valueOf (datumList.getZone ().getEnglishName ());
-        compSection= String.valueOf (datumList.getSection ().getEnglishName ());
-        compTasnif= String.valueOf (datumList.getTasnif ().getEnglishName ());
-        compAddress= String.valueOf (datumList.getAddress ());
-        compPhonenumber= String.valueOf (datumList.getPhoneNumber ());
-        compResname= String.valueOf (datumList.getResName ());
-        compMobilenumber= String.valueOf (datumList.getMobileNumber ());
-        compWhatsnumber= String.valueOf (datumList.getWhatsappNumber ());
-        compEmail= String.valueOf (datumList.getEmail ());
+        CompaniesDetailsFragment companiesDetailsFragment = new CompaniesDetailsFragment ( );
+        compname = String.valueOf (datumList.getName ( ));
+        compCountry = String.valueOf (datumList.getCountry ( ).getArabicName ());
+        compMohafza = String.valueOf (datumList.getMohafza ( ).getArabicName ( ));
+        compCity = String.valueOf (datumList.getCity ( ).getArabicName ( ));
+        compZone = String.valueOf (datumList.getZone ( ).getArabicName ( ));
+        compSection = String.valueOf (datumList.getSection ( ).getArabicName ( ));
+        compTasnif = String.valueOf (datumList.getTasnif ( ).getArabicName ( ));
+        compAddress = String.valueOf (datumList.getAddress ( ));
+        compPhonenumber = String.valueOf (datumList.getPhoneNumber ( ));
+        compResname = String.valueOf (datumList.getResName ( ));
+        compMobilenumber = String.valueOf (datumList.getMobileNumber ( ));
+        compWhatsnumber = String.valueOf (datumList.getWhatsappNumber ( ));
+        compEmail = String.valueOf (datumList.getEmail ( ));
 
         Bundle b = new Bundle ( );
         b.putString ("name", compname);
@@ -126,9 +145,19 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
         b.putString ("email", compEmail);
         companiesDetailsFragment.setArguments (b);
 
-        getFragmentManager ().beginTransaction ()
-                .replace (R.id.container_1,companiesDetailsFragment,null)
-                .addToBackStack (null).commit ();
+        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, companiesDetailsFragment, null).addToBackStack (null).commit ( );
+
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler ().postDelayed (new Runnable ( ) {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing (false);
+                Toast.makeText (getActivity (), "yes", Toast.LENGTH_SHORT).show ( );
+            }
+        }, 4000);
 
     }
 }

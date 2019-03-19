@@ -1,6 +1,7 @@
 package com.example.daleel.Fragments.LoginSystemFragments;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.daleel.Activities.CompaniesActivity;
+import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
 import com.example.daleel.Models.ChangePassword.ChangePasswordModel;
 import com.example.daleel.R;
@@ -35,7 +37,10 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
     EditText edittxtpass2;
     @BindView(R.id.buttonconfirmpass)
     Button btnconfirmpass;
-    String email,password,passconfirm;
+    String email, password, passconfirm;
+
+    MyAlertDialog myAlertDialog;
+    AlertDialog alertDialog;
 
     public ChangePasswordFragment() {
         // Required empty public constructor
@@ -44,41 +49,44 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate (R.layout.fragment_change_password,container,false);
-        ButterKnife.bind (this,view);
+        View view = inflater.inflate (R.layout.fragment_change_password, container, false);
+        ButterKnife.bind (this, view);
         btnconfirmpass.setOnClickListener (this);
         return view;
     }
 
-    private void changepassword(){
-        email = edittxtemailconfirm.getText ().toString ();
-        password = edittxtpass1.getText ().toString ();
-        passconfirm = edittxtpass2.getText ().toString ();
+    private void changepassword() {
+        email = edittxtemailconfirm.getText ( ).toString ( );
+        password = edittxtpass1.getText ( ).toString ( );
+        passconfirm = edittxtpass2.getText ( ).toString ( );
 
-        Call <ChangePasswordModel> call = RetrofitInstance.getInstance ().getApi ().ChangePassword (email,password,passconfirm);
+
+        myAlertDialog.showDialogue (getActivity ( ));
+        Call<ChangePasswordModel> call = RetrofitInstance.getInstance ( ).getApi ( ).ChangePassword (email, password, passconfirm);
         call.enqueue (new Callback<ChangePasswordModel> ( ) {
             @Override
             public void onResponse(Call<ChangePasswordModel> call, Response<ChangePasswordModel> response) {
-                String s = response.body ().getStatus ().getTitle ();
-                Toast.makeText (getActivity (), s, Toast.LENGTH_SHORT).show ( );
+                String s = response.body ( ).getStatus ( ).getTitle ( );
+                Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
+                myAlertDialog.cancell ( );
             }
 
             @Override
             public void onFailure(Call<ChangePasswordModel> call, Throwable t) {
-
+                myAlertDialog.cancell ( );
             }
         });
 
-        Intent myintent = new Intent (getActivity (), CompaniesActivity.class);
+        Intent myintent = new Intent (getActivity ( ), CompaniesActivity.class);
         startActivity (myintent);
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId ()){
+        switch (v.getId ( )) {
             case R.id.buttonconfirmpass:
-                changepassword ();
+                changepassword ( );
                 break;
         }
     }

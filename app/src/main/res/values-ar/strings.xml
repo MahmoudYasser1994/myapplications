@@ -23,6 +23,21 @@
     <string name="CountryName">الدولة</string>
     <string name="Mohafza">المحافظة</string>
     <string name="Section">القطاع</string>
+    <string name="login_preferences">دخول</string>
+    <string name="login_status_preferences">حالة الدخول</string>
+    <string name="draweropen">فتح</string>
+    <string name="drawerclose">غلق</string>
+    <string name="city">المدينة</string>
+    <string name="zone">المنطقة</string>
+    <string name="tasnif">التصنيف</string>
+    <string name="telephone">رقم التليفون</string>
+    <string name="resname">اسم المسئول</string>
+    <string name="whats">رقم الواتس</string>
+    <string name="address">العنوان</string>
+    <string name="emailofcomapany">الايميل</string>
+    <string name="nav_header_title">دليل</string>
+    <string name="nav_header_subtitle">الشركات</string>
+    <string name="action_settings">الاعدادات</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 package com.example.daleel.Fragments.LoginSystemFragments;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
 import com.example.daleel.Models.Confirmation.ConfirmationModel;
 import com.example.daleel.R;
@@ -31,6 +33,8 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
     Button btnconfirm;
     String email;
     String code;
+    MyAlertDialog myAlertDialog;
+    AlertDialog alertDialog;
 
 
     public ConfirmationFragment() {
@@ -43,40 +47,41 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate (R.layout.fragment_confirmation, container, false);
         ButterKnife.bind (this, view);
         btnconfirm.setOnClickListener (this);
+        myAlertDialog = new MyAlertDialog (alertDialog);
         return view;
     }
 
     private void ConfirmCode() {
 
-        code=edittxtcode.getText ().toString ();
+        code = edittxtcode.getText ( ).toString ( );
         Bundle b = this.getArguments ( );
         email = b.getString ("email");
 
-
+        myAlertDialog.showDialogue (getActivity ( ));
         Call<ConfirmationModel> confirm = RetrofitInstance.getInstance ( ).getApi ( ).confirm (code, email);
 
         confirm.enqueue (new Callback<ConfirmationModel> ( ) {
             @Override
             public void onResponse(Call<ConfirmationModel> call, Response<ConfirmationModel> response) {
-
+                myAlertDialog.cancell ( );
             }
 
             @Override
             public void onFailure(Call<ConfirmationModel> call, Throwable t) {
-
+                myAlertDialog.cancell ( );
             }
         });
 
         ChangePasswordFragment changePasswordFragment = new ChangePasswordFragment ( );
-        getFragmentManager ().beginTransaction ().replace (R.id.container, changePasswordFragment,null).addToBackStack (null).commit ();
+        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, changePasswordFragment, null).addToBackStack (null).commit ( );
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId ()){
+        switch (v.getId ( )) {
             case R.id.buttonconfirm:
-                ConfirmCode ();
+                ConfirmCode ( );
                 break;
         }
 

@@ -7,7 +7,7 @@
     <string name="skip">skip now</string>
     <string name="forget">forgot password</string>
     <string name="username">user name</string>
-    <string name="mobile">mobile number </string>
+    <string name="mobile">mobile number :</string>
     <string name="confirmpassword">confirm password </string>
     <string name="phone">phone number </string>
     <string name="verify">verification code will be sent to your email </string>
@@ -18,10 +18,30 @@
     <string name="code">  code </string>
     <string name="changepassword">please change your password</string>
     <string name="newpassword">new password</string>
-    <string name="CompanyName">Company Name</string>
-    <string name="CountryName">Country</string>
-    <string name="Mohafza">Mohafza</string>
-    <string name="Section">Section Name</string>
+    <string name="CompanyName">Company :</string>
+    <string name="CountryName">Country :</string>
+    <string name="Mohafza">Mohafza :</string>
+    <string name="Section">Section :</string>
+    <string name="city">city :</string>
+    <string name="zone">zone :</string>
+    <string name="tasnif">tasnif :</string>
+    <string name="telephone">telephone No:</string>
+    <string name="resname">Responsible :</string>
+    <string name="address">address :</string>
+
+    <string name="whats">whats No:</string>
+    <string name="emailofcomapany">email address :</string>
+    <string name="login_preferences">com.example.daleel login</string>
+    <string name="login_status_preferences">com.example.daleel login_status</string>
+    <string name="draweropen">drawer open</string>
+    <string name="drawerclose">drawer close</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Daleel</string>
+    <string name="nav_header_subtitle">companies</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

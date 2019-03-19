@@ -50,7 +50,7 @@ public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyVi
         TextView txtName;
         @BindView(R.id.textViewcountry)
         TextView txtCountry;
-        @BindView(R.id.textViewMohafza)
+        @BindView(R.id.textViewmohafza)
         TextView txtMohafza;
         @BindView(R.id.textviewsection)
         TextView txtsection;
@@ -64,9 +64,9 @@ public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyVi
         void onBind(final Datum data) {
 
             txtName.setText (data.getName ( ));
-            txtCountry.setText (data.getCountry ( ).getEnglishName ( ));
-            txtMohafza.setText (data.getMohafza ( ).getEnglishName ( ));
-            txtsection.setText (data.getSection ( ).getEnglishName ( ));
+            txtCountry.setText (data.getCountry ( ).getArabicName ());
+            txtMohafza.setText (data.getMohafza ( ).getArabicName ());
+            txtsection.setText (data.getSection ( ).getArabicName ());
 
             itemView.setOnClickListener (v -> listAllClickListener.onItemClick (data,getAdapterPosition ()));
 

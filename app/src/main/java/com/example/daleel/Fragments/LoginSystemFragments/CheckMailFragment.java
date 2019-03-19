@@ -1,6 +1,7 @@
 package com.example.daleel.Fragments.LoginSystemFragments;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
 import com.example.daleel.Models.Check.CheckModel;
 import com.example.daleel.R;
@@ -34,6 +36,9 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
     @BindView(R.id.buttonsendemail)
     Button btnsend;
 
+    MyAlertDialog myAlertDialog;
+    AlertDialog alertDialog;
+
 
     public CheckMailFragment() {
         // Required empty public constructor
@@ -46,6 +51,7 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
         ButterKnife.bind (this, view);
         btnhave.setOnClickListener (this);
         btnsend.setOnClickListener (this);
+        myAlertDialog = new MyAlertDialog (alertDialog);
         return view;
     }
 
@@ -54,29 +60,29 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
 
         String mail = edittxtemailsend.getText ( ).toString ( );
 
+        myAlertDialog.showDialogue (getActivity ( ));
         Call<CheckModel> call = RetrofitInstance.getInstance ( ).getApi ( ).check (mail);
         call.enqueue (new Callback<CheckModel> ( ) {
             @Override
             public void onResponse(Call<CheckModel> call, Response<CheckModel> response) {
 
-                String s = String.valueOf (response.body ().getStatus ().getTitle ());
+                String s = String.valueOf (response.body ( ).getStatus ( ).getTitle ( ));
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
-
+                myAlertDialog.cancell ( );
 
             }
 
             @Override
             public void onFailure(Call<CheckModel> call, Throwable t) {
-
+                myAlertDialog.cancell ( );
             }
         });
 
         ConfirmationFragment confirmationFragment = new ConfirmationFragment ( );
-        getFragmentManager ().beginTransaction ().replace (R.id.container, confirmationFragment,null).addToBackStack (null).addToBackStack (null).commit ();
+        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, confirmationFragment, null).addToBackStack (null).addToBackStack (null).commit ( );
         Bundle b = new Bundle ( );
         b.putString ("email", mail);
         confirmationFragment.setArguments (b);
-
 
 
     }
@@ -86,7 +92,7 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
         switch (v.getId ( )) {
             case R.id.buttonhavecode:
                 ConfirmationFragment confirmationFragment = new ConfirmationFragment ( );
-                getFragmentManager ().beginTransaction ().replace (R.id.container,confirmationFragment,null).addToBackStack (null).commit ();
+                getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, confirmationFragment, null).addToBackStack (null).commit ( );
                 break;
 
             case R.id.buttonsendemail:

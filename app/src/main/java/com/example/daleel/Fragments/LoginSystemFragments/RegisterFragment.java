@@ -1,6 +1,7 @@
 package com.example.daleel.Fragments.LoginSystemFragments;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
 import com.example.daleel.Models.Register.RegisterModel;
 import com.example.daleel.R;
@@ -38,6 +40,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.buttoncreate)
     Button btncreate;
 
+    MyAlertDialog myAlertDialog;
+    AlertDialog alertDialog;
+
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -50,6 +55,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate (R.layout.fragment_register, container, false);
         ButterKnife.bind (this, view);
         btncreate.setOnClickListener (this);
+        myAlertDialog = new MyAlertDialog (alertDialog);
         return view;
     }
 
@@ -103,23 +109,28 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
+        myAlertDialog.showDialogue (getActivity ( ));
         Call<RegisterModel> call = RetrofitInstance.getInstance ( ).getApi ( ).register (name, email, ph_number, password, password_confirmation);
         call.enqueue (new Callback<RegisterModel> ( ) {
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
                 String s = response.body ( ).getStatus ( ).getTitle ( );
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
+                myAlertDialog.cancell ( );
 
-                LoginFragment loginFragment = new LoginFragment ( );
-                getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, loginFragment ).commit();
+
             }
 
             @Override
             public void onFailure(Call<RegisterModel> call, Throwable t) {
                 t.printStackTrace ( );
+                myAlertDialog.cancell ( );
 
             }
         });
+
+        LoginFragment loginFragment = new LoginFragment ( );
+        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, loginFragment).commit ( );
 
 
     }

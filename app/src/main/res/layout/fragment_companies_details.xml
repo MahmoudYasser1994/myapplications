@@ -1,160 +1,414 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
 
         <TextView
-            android:id="@+id/textViewnamedetails"
-            android:layout_width="match_parent"
+            android:id="@+id/company_static"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/CompanyName"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
-        <TextView
-            android:id="@+id/textviewcountrydetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="20sp" />
-        <TextView
-            android:id="@+id/textviewmohafzadetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="20sp" />
         <TextView
-            android:id="@+id/textviewcitydetails"
-            android:layout_width="match_parent"
+            android:id="@+id/companyTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/company_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/CompanyName"
+            android:textSize="20sp"
+            android:gravity="left"/>
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+
+        <TextView
+            android:id="@+id/country_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/companyTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/CountryName"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textviewzonedetails"
-            android:layout_width="match_parent"
+            android:id="@+id/countryTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/companyTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/country_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/CountryName"
+            android:textSize="20sp"
+            android:gravity="left"/>
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textviewsectiondetails"
-            android:layout_width="match_parent"
+            android:id="@+id/mohafza_static"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_below="@id/countryTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/Mohafza"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textviewtasnifdetails"
-            android:layout_width="match_parent"
+            android:id="@+id/mohafzaTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/countryTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="16dp"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="20sp" />
+            android:layout_toEndOf="@+id/mohafza_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/Mohafza"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+
         <TextView
-            android:id="@+id/textviewaddressdetails"
-            android:layout_width="match_parent"
+            android:id="@+id/city_static"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/mohafzaTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/city"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textviewphonenumberdetails"
-            android:layout_width="match_parent"
+            android:id="@+id/cityTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/mohafzaTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="20sp" />
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/city"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
         <TextView
-            android:id="@+id/textviewresnamedetails"
-            android:layout_width="match_parent"
+            android:id="@+id/zone_static"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/cityTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/zone"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textviewmobilenumberdetails"
-            android:layout_width="match_parent"
+            android:id="@+id/zoneTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/cityTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="@string/email"
-            android:textSize="20sp" />
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/zone"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
         <TextView
-            android:id="@+id/textviewwhatsnumberdetails"
-            android:layout_width="match_parent"
+            android:id="@+id/section_static"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/zoneTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/Section"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
+
         <TextView
-            android:id="@+id/textviewemaildetails"
-            android:layout_width="match_parent"
+            android:id="@+id/sectionTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/zoneTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/Section"
+            android:textSize="20sp"
+            android:gravity="left"/>
 
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+        <TextView
+            android:id="@+id/tasnif_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sectionTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@string/email"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/tasnif"
+            android:textColor="@color/darkpurple"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/tasnifTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sectionTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/tasnif"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/address_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tasnifTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/address"
+            android:textColor="@color/darkpurple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/addressTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tasnifTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/address"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/telephone_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addressTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/telephone"
+            android:textColor="@color/darkpurple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/telephoneTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/addressTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/telephone"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/res_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telephoneTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/resname"
+            android:textColor="@color/darkpurple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/resTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/telephoneTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/resname"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/mobile_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/mobile"
+            android:textColor="@color/darkpurple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/mobileTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/mobile"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/whats_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mobileTV"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/whats"
+            android:textColor="@color/darkpurple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/whatsTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mobileTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/whats"
+            android:textSize="20sp"
+            android:gravity="left"/>
+
+        <TextView
+            android:id="@+id/email_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/whatsTV"
+            android:layout_alignParentStart="true"
+
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/emailofcomapany"
+            android:textColor="@color/darkpurple"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/emailTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/whatsTV"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/city_static"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/emailofcomapany"
+            android:textSize="20sp"
+            android:gravity="left"/>
 
 
-    </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
 

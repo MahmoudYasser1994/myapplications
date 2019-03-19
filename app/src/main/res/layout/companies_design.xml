@@ -1,171 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:orientation="vertical">
+
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/darkpurple"
+    app:cardCornerRadius="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <TextView
+            android:id="@+id/textViewname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@string/send"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
-            <TextView
-                android:id="@+id/textViewname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginStart="80dp"
-                android:gravity="center"
-                android:text="@string/send"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <TextView
-                android:id="@+id/textViewname1"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_gravity="right"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:text="اسم الشركة"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewname"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="4dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="17dp"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteY="19dp">
-
-            <TextView
-                android:id="@+id/textViewcountry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:text="@string/send"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:id="@+id/textViewcountry1"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:text="الدولة"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewcountry"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="0dp" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textViewcountry"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:gravity="end"
+            android:text="@string/send"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
-            <TextView
-                android:id="@+id/textViewMohafza"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_gravity="left"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="@string/send"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:gravity="center"
-                android:text="المحافظة"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewMohafza"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="0dp" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textViewmohafza"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:gravity="end"
+            android:text="@string/send"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+        <TextView
+            android:id="@+id/textviewsection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="8dp"
+            android:gravity="end"
+            android:text="@string/send"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
-            <TextView
-                android:id="@+id/textviewsection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-
-                android:layout_marginStart="80dp"
-                android:gravity="left"
-                android:text="@string/send"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="0dp" />
-
-            <TextView
-                android:id="@+id/textViewsection1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginStart="120dp"
-                android:gravity="center"
-                android:text="المحافظة"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@+id/textviewsection"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="0dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
