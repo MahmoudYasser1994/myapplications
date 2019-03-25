@@ -19,13 +19,40 @@ public class SharedPreferenceConfig {
     public void writeLoginStatus(boolean status) {
 
         SharedPreferences.Editor editor= sharedPreferences.edit ();
-        editor.putBoolean (context.getResources ().getString (R.string.login_status_preferences),status);
+        editor.putBoolean ("login",status);
         editor.apply ();
     }
 
     public boolean readLoginStatus() {
         boolean status;
-        status =sharedPreferences.getBoolean (context.getResources ().getString (R.string.login_status_preferences),false);
+        status =sharedPreferences.getBoolean ("login",false);
+        return status;
+    }
+
+
+    public void writeName(String name) {
+
+        SharedPreferences.Editor editor= sharedPreferences.edit ();
+        editor.putString ("name",name);
+        editor.apply ();
+    }
+
+    public String readName() {
+        String status;
+        status =sharedPreferences.getString ("name",null);
+        return status;
+    }
+
+    public void writeEmail(String email) {
+
+        SharedPreferences.Editor editor= sharedPreferences.edit ();
+        editor.putString ("email",email);
+        editor.apply ();
+    }
+
+    public boolean readEmail() {
+        boolean status;
+        status =sharedPreferences.getBoolean ("email",false);
         return status;
     }
 }

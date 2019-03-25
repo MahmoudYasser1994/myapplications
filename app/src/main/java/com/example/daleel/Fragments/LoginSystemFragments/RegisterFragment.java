@@ -23,6 +23,7 @@ import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
 import com.example.daleel.Models.Register.RegisterModel;
 import com.example.daleel.R;
+import com.example.daleel.SharedPreference.SharedPreferenceConfig;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,6 +44,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     @BindView(R.id.progress)
     ProgressBar progressBar;
 
+    SharedPreferenceConfig sharedPreferenceConfig;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -54,6 +57,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate (R.layout.fragment_register, container, false);
         ButterKnife.bind (this, view);
         btncreate.setOnClickListener (this);
+        sharedPreferenceConfig = new SharedPreferenceConfig (getContext ( ));
         return view;
     }
 
@@ -115,6 +119,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 String s = response.body ( ).getStatus ( ).getTitle ( );
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
                 progressBar.setVisibility (View.GONE);
+                sharedPreferenceConfig.writeName (response.body ().getData ().getName ());
+                sharedPreferenceConfig.writeEmail (response.body ().getData ().getEmail ());
 
 
             }

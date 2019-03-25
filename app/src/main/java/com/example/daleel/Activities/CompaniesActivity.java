@@ -15,6 +15,7 @@ import com.example.daleel.Interfaces.Communicator;
 import com.example.daleel.Interfaces.ListAllClickListener;
 import com.example.daleel.Models.CompaniesModel.Datum;
 import com.example.daleel.R;
+import com.example.daleel.SharedPreference.SharedPreferenceConfig;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     TextView txtnameregistered;
+    SharedPreferenceConfig sharedPreferenceConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +50,14 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
         setContentView (R.layout.activity_navigation_drawer);
         ButterKnife.bind (this);
         setSupportActionBar (toolbar);
-
+        sharedPreferenceConfig = new SharedPreferenceConfig (this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener (toggle);
         toggle.syncState ( );
 
         View headerview = navigationView.getHeaderView (0);
         txtnameregistered = (TextView) headerview.findViewById (R.id.txtnameregistered);
-        txtnameregistered.setText ("hi");
+        txtnameregistered.setText (sharedPreferenceConfig.readName ());
 
         navigationView.setNavigationItemSelectedListener (this);
 
