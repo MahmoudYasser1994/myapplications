@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daleel.AlertDialog.MyAlertDialog;
@@ -39,10 +40,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     EditText txtpasswordconfirm;
     @BindView(R.id.buttoncreate)
     Button btncreate;
-
-    MyAlertDialog myAlertDialog;
-    AlertDialog alertDialog;
-
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -55,7 +54,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate (R.layout.fragment_register, container, false);
         ButterKnife.bind (this, view);
         btncreate.setOnClickListener (this);
-        myAlertDialog = new MyAlertDialog (alertDialog);
         return view;
     }
 
@@ -108,15 +106,15 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             txtpasswordconfirm.requestFocus ( );
             return;
         }
+        progressBar.setVisibility (View.VISIBLE);
 
-        myAlertDialog.showDialogue (getActivity ( ));
         Call<RegisterModel> call = RetrofitInstance.getInstance ( ).getApi ( ).register (name, email, ph_number, password, password_confirmation);
         call.enqueue (new Callback<RegisterModel> ( ) {
             @Override
             public void onResponse(Call<RegisterModel> call, Response<RegisterModel> response) {
                 String s = response.body ( ).getStatus ( ).getTitle ( );
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
 
 
             }
@@ -124,7 +122,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onFailure(Call<RegisterModel> call, Throwable t) {
                 t.printStackTrace ( );
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
 
             }
         });

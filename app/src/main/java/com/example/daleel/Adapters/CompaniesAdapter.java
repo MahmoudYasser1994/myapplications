@@ -1,27 +1,34 @@
 package com.example.daleel.Adapters;
 
+import android.database.CursorJoiner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.example.daleel.Interfaces.ListAllClickListener;
 import com.example.daleel.Models.CompaniesModel.Datum;
 import com.example.daleel.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.media.MediaBrowserServiceCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyViewHolder> {
+public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyViewHolder> implements Filterable {
     private List<Datum> datumList;
+    private List<Datum> datumListFull;
     private ListAllClickListener listAllClickListener;
 
     public CompaniesAdapter(List<Datum> datumList, ListAllClickListener listAllClickListener) {
         this.datumList = datumList;
+        datumListFull = new ArrayList<> (datumList);
         this.listAllClickListener = listAllClickListener;
     }
 
@@ -43,9 +50,42 @@ public class CompaniesAdapter extends RecyclerView.Adapter<CompaniesAdapter.MyVi
         return datumList.size ( );
     }
 
+    @Override
+    public Filter getFilter() {
+        return exampleFilter;
+    }
+
+    private Filter exampleFilter = new Filter ( ) {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Datum> filteredlist = new ArrayList<> ();
+            if (constraint == null || constraint.length ()==0){
+                filteredlist.addAll (datumListFull);
+            } else {
+                String searchpattern = constraint.toString ().toLowerCase ().trim ();
+                for (Datum item : datumListFull){
+                    if (item.getName ().toLowerCase ().contains (searchpattern)){
+                        filteredlist.add (item);
+                    }
+                }
+            }
+            FilterResults Result = new FilterResults ();
+            Result.values=filteredlist;
+
+            return Result;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            datumList.clear ();
+            datumList.addAll ((List)results.values);
+            notifyDataSetChanged ();
+
+        }
+    };
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textViewname)
         TextView txtName;
         @BindView(R.id.textViewcountry)

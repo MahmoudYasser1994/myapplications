@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.daleel.Activities.CompaniesActivity;
+import com.example.daleel.Interfaces.Communicator;
 import com.example.daleel.Interfaces.ListAllClickListener;
 import com.example.daleel.Models.CompaniesModel.Datum;
 import com.example.daleel.R;
@@ -56,6 +58,8 @@ public class CompaniesDetailsFragment extends Fragment {
     private String compWhatsnumber;
     private String compEmail;
 
+    Communicator communicator;
+
 
     public CompaniesDetailsFragment() {
         // Required empty public constructor
@@ -64,6 +68,7 @@ public class CompaniesDetailsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
+        communicator = (Communicator) getActivity ( );
         Bundle b = getArguments ( );
         if (b != null) {
             compname = b.getString ("name");
@@ -88,6 +93,7 @@ public class CompaniesDetailsFragment extends Fragment {
         View view = inflater.inflate (R.layout.fragment_companies_details, container, false);
         ButterKnife.bind (this,view);
         views ( );
+        communicator.passData ("Details");
         return view;
 
     }
@@ -123,6 +129,15 @@ public class CompaniesDetailsFragment extends Fragment {
         txtemaildetails.setText (compEmail);
 
     }
+
+//    public void onResume(){
+//        super.onResume();
+//
+//        // Set title bar
+//        ((CompaniesActivity) getActivity())
+//                .setActionBarTitle("Details");
+//
+//    }
 
 //    @OnClick({})
 //    void onB(Button button){

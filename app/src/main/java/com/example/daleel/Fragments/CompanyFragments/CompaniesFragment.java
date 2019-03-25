@@ -1,9 +1,13 @@
 package com.example.daleel.Fragments.CompanyFragments;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -20,12 +24,16 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.daleel.Activities.CompaniesActivity;
 import com.example.daleel.Adapters.CompaniesAdapter;
 import com.example.daleel.AlertDialog.MyAlertDialog;
 import com.example.daleel.Api.RetrofitInstance;
+import com.example.daleel.Interfaces.Communicator;
 import com.example.daleel.Interfaces.ListAllClickListener;
 import com.example.daleel.Models.CompaniesModel.CompaniesModel;
 import com.example.daleel.Models.CompaniesModel.Datum;
@@ -37,14 +45,17 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompaniesFragment extends Fragment implements ListAllClickListener , SwipeRefreshLayout.OnRefreshListener{
+public class CompaniesFragment extends Fragment implements ListAllClickListener , SwipeRefreshLayout.OnRefreshListener  {
     @BindView (R.id.swipe)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
+    @BindView (R.id.progress)
+    ProgressBar progressBar;
     RecyclerView.LayoutManager layoutManager;
     private CompaniesAdapter companiesAdapter;
     private List<Datum> getdata;
+
 
     private String compname;
     private String compCountry;
@@ -60,26 +71,39 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
     private String compWhatsnumber;
     private String compEmail;
 
-    MyAlertDialog myAlertDialog;
-    AlertDialog alertDialog;
+
+    Communicator communicator;
 
 
     public CompaniesFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach (context);
+        communicator = (Communicator) context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate (savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate (R.layout.fragment_companies, container, false);
         ButterKnife.bind (this,view);
+
         getdata = new ArrayList<> ( );
         companiesAdapter = new CompaniesAdapter (new ArrayList<Datum> ( ), this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager (getActivity ( ), 1);
         recyclerView.setLayoutManager (gridLayoutManager);
         recyclerView.setItemAnimator (new DefaultItemAnimator ( ));
         recyclerView.setAdapter (companiesAdapter);
-        myAlertDialog = new MyAlertDialog (alertDialog);
+
+        communicator.passData ("Companies");
 
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
@@ -94,19 +118,20 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
     private void onCall() {
 
 
-        myAlertDialog.showDialogue (getActivity ( ));
+        progressBar.setVisibility (View.VISIBLE);
         Call<CompaniesModel> call = RetrofitInstance.getInstance ( ).getApi ( ).getCompanies ( );
         call.enqueue (new Callback<CompaniesModel> ( ) {
             @Override
             public void onResponse(Call<CompaniesModel> call, Response<CompaniesModel> response) {
 
                 companiesAdapter.replaceData (response.body ( ).getData ( ).getData ( ));
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
+
             }
 
             @Override
             public void onFailure(Call<CompaniesModel> call, Throwable t) {
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
             }
         });
     }
@@ -145,7 +170,7 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
         b.putString ("email", compEmail);
         companiesDetailsFragment.setArguments (b);
 
-        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, companiesDetailsFragment, null).addToBackStack (null).commit ( );
+        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, companiesDetailsFragment, "details").addToBackStack (null).commit ( );
 
     }
 
@@ -155,9 +180,21 @@ public class CompaniesFragment extends Fragment implements ListAllClickListener 
             @Override
             public void run() {
                 swipeRefreshLayout.setRefreshing (false);
-                Toast.makeText (getActivity (), "yes", Toast.LENGTH_SHORT).show ( );
+                getFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, new CompaniesFragment(), "details").addToBackStack (null).commit ( );
+
             }
-        }, 4000);
+        }, 2000);
 
     }
+
+
+
+
+//    public void onResume(){
+//        super.onResume();
+//
+//        ((CompaniesActivity) getActivity())
+//                .setActionBarTitle("Companies");
+//
+//    }
 }

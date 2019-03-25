@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daleel.AlertDialog.MyAlertDialog;
@@ -33,9 +34,8 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
     Button btnconfirm;
     String email;
     String code;
-    MyAlertDialog myAlertDialog;
-    AlertDialog alertDialog;
-
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
 
     public ConfirmationFragment() {
         // Required empty public constructor
@@ -47,7 +47,6 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         View view = inflater.inflate (R.layout.fragment_confirmation, container, false);
         ButterKnife.bind (this, view);
         btnconfirm.setOnClickListener (this);
-        myAlertDialog = new MyAlertDialog (alertDialog);
         return view;
     }
 
@@ -57,18 +56,18 @@ public class ConfirmationFragment extends Fragment implements View.OnClickListen
         Bundle b = this.getArguments ( );
         email = b.getString ("email");
 
-        myAlertDialog.showDialogue (getActivity ( ));
+        progressBar.setVisibility (View.VISIBLE);
         Call<ConfirmationModel> confirm = RetrofitInstance.getInstance ( ).getApi ( ).confirm (code, email);
 
         confirm.enqueue (new Callback<ConfirmationModel> ( ) {
             @Override
             public void onResponse(Call<ConfirmationModel> call, Response<ConfirmationModel> response) {
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
             }
 
             @Override
             public void onFailure(Call<ConfirmationModel> call, Throwable t) {
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
             }
         });
 

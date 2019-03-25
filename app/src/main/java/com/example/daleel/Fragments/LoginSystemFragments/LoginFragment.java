@@ -1,9 +1,21 @@
 package com.example.daleel.Fragments.LoginSystemFragments;
 
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.example.daleel.Activities.CompaniesActivity;
+import com.example.daleel.Api.RetrofitInstance;
+import com.example.daleel.Models.Login.LoginModel;
+import com.example.daleel.R;
+import com.example.daleel.SharedPreference.SharedPreferenceConfig;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -12,20 +24,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.daleel.Activities.CompaniesActivity;
-import com.example.daleel.AlertDialog.MyAlertDialog;
-import com.example.daleel.Api.RetrofitInstance;
-import com.example.daleel.Models.Login.LoginModel;
-import com.example.daleel.R;
-import com.example.daleel.SharedPreference.SharedPreferenceConfig;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,11 +40,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     Button btnlogin;
     @BindView(R.id.buttonregister)
     Button btnregister;
+    @BindView(R.id.progress)
+    ProgressBar progressBar;
 
     SharedPreferenceConfig sharedPreferenceConfig;
-    AlertDialog alertDialog;
-    MyAlertDialog myAlertDialog;
-
 
     public LoginFragment() {
 
@@ -60,8 +57,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         btnregister.setOnClickListener (this);
         btnforget.setOnClickListener (this);
         btnlogin.setOnClickListener (this);
-        myAlertDialog = new MyAlertDialog (alertDialog);
-        sharedPreferenceConfig = new SharedPreferenceConfig (getContext ());
+        sharedPreferenceConfig = new SharedPreferenceConfig (getContext ( ));
         return view;
     }
 
@@ -84,7 +80,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void goToForgetScreen() {
 
         CheckMailFragment checkMailFragment = new CheckMailFragment ( );
-        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, checkMailFragment, null).addToBackStack (null).commit ( );
+        if (getFragmentManager ( ) != null) {
+            getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, checkMailFragment, "check").addToBackStack (null).commit ( );
+        }
 
 //        fragmentTransaction.addToBackStack (null);
 
@@ -93,7 +91,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void goToRegisterScreen() {
 
         RegisterFragment registerFragment = new RegisterFragment ( );
-        getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, registerFragment, null).addToBackStack (null).commit ( );
+        if (getFragmentManager ( ) != null) {
+            getFragmentManager ( ).beginTransaction ( ).replace (R.id.container, registerFragment, null).addToBackStack (null).commit ( );
+        }
 
 //        fragmentTransaction.addToBackStack (null);
 
@@ -122,8 +122,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             return;
         }
 
-
-        myAlertDialog.showDialogue (getActivity ( ));
+        progressBar.setVisibility (View.VISIBLE);
         Call<LoginModel> call = RetrofitInstance.getInstance ( ).getApi ( ).login (email, password);
         call.enqueue (new Callback<LoginModel> ( ) {
             @Override
@@ -133,17 +132,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 Intent myintent = new Intent (getActivity ( ), CompaniesActivity.class);
                 startActivity (myintent);
                 sharedPreferenceConfig.writeLoginStatus (true);
-                myAlertDialog.cancell ();
+                progressBar.setVisibility (View.GONE);
 
             }
 
             @Override
             public void onFailure(Call<LoginModel> call, Throwable t) {
-                myAlertDialog.cancell ();
+                progressBar.setVisibility (View.GONE);
 
             }
         });
-
 
 
     }

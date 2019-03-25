@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daleel.AlertDialog.MyAlertDialog;
@@ -35,9 +36,8 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
     Button btnhave;
     @BindView(R.id.buttonsendemail)
     Button btnsend;
-
-    MyAlertDialog myAlertDialog;
-    AlertDialog alertDialog;
+    @BindView (R.id.progress)
+    ProgressBar progressBar;
 
 
     public CheckMailFragment() {
@@ -51,7 +51,6 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
         ButterKnife.bind (this, view);
         btnhave.setOnClickListener (this);
         btnsend.setOnClickListener (this);
-        myAlertDialog = new MyAlertDialog (alertDialog);
         return view;
     }
 
@@ -60,7 +59,8 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
 
         String mail = edittxtemailsend.getText ( ).toString ( );
 
-        myAlertDialog.showDialogue (getActivity ( ));
+        progressBar.setVisibility (View.VISIBLE);
+
         Call<CheckModel> call = RetrofitInstance.getInstance ( ).getApi ( ).check (mail);
         call.enqueue (new Callback<CheckModel> ( ) {
             @Override
@@ -68,13 +68,13 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
 
                 String s = String.valueOf (response.body ( ).getStatus ( ).getTitle ( ));
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
 
             }
 
             @Override
             public void onFailure(Call<CheckModel> call, Throwable t) {
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
             }
         });
 
@@ -83,6 +83,7 @@ public class CheckMailFragment extends Fragment implements View.OnClickListener 
         Bundle b = new Bundle ( );
         b.putString ("email", mail);
         confirmationFragment.setArguments (b);
+
 
 
     }

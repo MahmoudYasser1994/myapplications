@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daleel.Activities.CompaniesActivity;
@@ -39,8 +40,8 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
     Button btnconfirmpass;
     String email, password, passconfirm;
 
-    MyAlertDialog myAlertDialog;
-    AlertDialog alertDialog;
+   @BindView (R.id.progress)
+    ProgressBar progressBar;
 
     public ChangePasswordFragment() {
         // Required empty public constructor
@@ -61,19 +62,19 @@ public class ChangePasswordFragment extends Fragment implements View.OnClickList
         passconfirm = edittxtpass2.getText ( ).toString ( );
 
 
-        myAlertDialog.showDialogue (getActivity ( ));
+    progressBar.setVisibility (View.VISIBLE);
         Call<ChangePasswordModel> call = RetrofitInstance.getInstance ( ).getApi ( ).ChangePassword (email, password, passconfirm);
         call.enqueue (new Callback<ChangePasswordModel> ( ) {
             @Override
             public void onResponse(Call<ChangePasswordModel> call, Response<ChangePasswordModel> response) {
                 String s = response.body ( ).getStatus ( ).getTitle ( );
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
             }
 
             @Override
             public void onFailure(Call<ChangePasswordModel> call, Throwable t) {
-                myAlertDialog.cancell ( );
+                progressBar.setVisibility (View.GONE);
             }
         });
 
