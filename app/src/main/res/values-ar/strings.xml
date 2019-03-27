@@ -39,6 +39,8 @@
     <string name="nav_header_subtitle">الشركات</string>
     <string name="action_settings">الاعدادات</string>
     <string name="search">بحث</string>
+    <string name="languageselect">هل تريد تغيير اللغة</string>
+    <string name="languagesetting">"تغيير اللغة "</string>
 
 
 </resources>

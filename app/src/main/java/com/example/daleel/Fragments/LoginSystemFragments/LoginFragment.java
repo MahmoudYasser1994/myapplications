@@ -57,7 +57,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         btnregister.setOnClickListener (this);
         btnforget.setOnClickListener (this);
         btnlogin.setOnClickListener (this);
-        sharedPreferenceConfig = new SharedPreferenceConfig (getContext ( ));
+        sharedPreferenceConfig = new SharedPreferenceConfig ();
         return view;
     }
 
@@ -126,7 +126,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         Call<LoginModel> call = RetrofitInstance.getInstance ( ).getApi ( ).login (email, password);
         call.enqueue (new Callback<LoginModel> ( ) {
             @Override
-            public void onResponse(Call<LoginModel> call, Response<LoginModel> response) {
+            public void onResponse(@NonNull Call<LoginModel> call, Response<LoginModel> response) {
                 String s = response.body ( ).getStatus ( ).getTitle ( );
                 Toast.makeText (getActivity ( ), s, Toast.LENGTH_SHORT).show ( );
                 Intent myintent = new Intent (getActivity ( ), CompaniesActivity.class);

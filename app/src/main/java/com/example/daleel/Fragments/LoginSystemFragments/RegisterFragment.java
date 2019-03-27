@@ -57,7 +57,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate (R.layout.fragment_register, container, false);
         ButterKnife.bind (this, view);
         btncreate.setOnClickListener (this);
-        sharedPreferenceConfig = new SharedPreferenceConfig (getContext ( ));
+        sharedPreferenceConfig = new SharedPreferenceConfig ();
         return view;
     }
 
@@ -121,15 +121,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 progressBar.setVisibility (View.GONE);
                 sharedPreferenceConfig.writeName (response.body ().getData ().getName ());
                 sharedPreferenceConfig.writeEmail (response.body ().getData ().getEmail ());
-
-
             }
 
             @Override
             public void onFailure(Call<RegisterModel> call, Throwable t) {
                 t.printStackTrace ( );
                 progressBar.setVisibility (View.GONE);
-
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.daleel.Activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import com.example.daleel.Interfaces.ListAllClickListener;
 import com.example.daleel.Models.CompaniesModel.Datum;
 import com.example.daleel.R;
 import com.example.daleel.SharedPreference.SharedPreferenceConfig;
+import com.example.daleel.application.ExampleDialog;
+import com.example.daleel.application.MyContextWrapper;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     TextView txtnameregistered;
+    TextView txtemailregistered;
     SharedPreferenceConfig sharedPreferenceConfig;
 
     @Override
@@ -49,15 +53,20 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_navigation_drawer);
         ButterKnife.bind (this);
+        setLayoutLanguage ();
         setSupportActionBar (toolbar);
-        sharedPreferenceConfig = new SharedPreferenceConfig (this);
+        sharedPreferenceConfig = new SharedPreferenceConfig ( );
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener (toggle);
         toggle.syncState ( );
 
         View headerview = navigationView.getHeaderView (0);
         txtnameregistered = (TextView) headerview.findViewById (R.id.txtnameregistered);
-        txtnameregistered.setText (sharedPreferenceConfig.readName ());
+        txtemailregistered = (TextView) headerview.findViewById (R.id.txtemailregistered);
+
+        txtnameregistered.setText (sharedPreferenceConfig.readName ( ));
+        txtemailregistered.setText (sharedPreferenceConfig.readEmail ( ));
+
 
         navigationView.setNavigationItemSelectedListener (this);
 
@@ -124,11 +133,12 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
                 Intent myintent = new Intent (this, LoginSystemActivity.class);
                 startActivity (myintent);
                 finish ( );
-            case R.id.about_us:
-                getSupportFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, new profilefragment ( ), null).addToBackStack (null).commit ( );
-            case R.id.search:
-                getSupportFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, new CompaniesFragment ( ), null).commit ( );
+                sharedPreferenceConfig.writeLoginStatus (false);break;
 
+            case R.id.profile:
+                getSupportFragmentManager ( ).beginTransaction ( ).replace (R.id.container_1, new profilefragment ( ), null).addToBackStack (null).commit ( );break;
+            case R.id.change_lang:
+                openDialog ( );break;
 
         }
 
@@ -136,6 +146,11 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
         DrawerLayout drawer = findViewById (R.id.drawer_layout);
         drawer.closeDrawer (GravityCompat.START);
         return true;
+    }
+
+    private void openDialog() {
+        ExampleDialog exampleDialog = new ExampleDialog ( );
+        exampleDialog.show (getSupportFragmentManager ( ), "example dialog");
     }
 
     @Override
@@ -152,6 +167,18 @@ public class CompaniesActivity extends AppCompatActivity implements NavigationVi
     @Override
     public void passData1(String name, String email) {
 
+    }
+
+    public void setLayoutLanguage() {
+        if (sharedPreferenceConfig.getLanguage ( ).equals ("ar"))
+            getWindow ( ).getDecorView ( ).setLayoutDirection (View.LAYOUT_DIRECTION_RTL);
+        else getWindow ( ).getDecorView ( ).setLayoutDirection (View.LAYOUT_DIRECTION_LTR);
+    }
+
+    @Override
+    public void attachBaseContext(Context newBase) {
+        sharedPreferenceConfig = new SharedPreferenceConfig ( );
+        super.attachBaseContext (MyContextWrapper.wrap (newBase, sharedPreferenceConfig.getLanguage ( )));
     }
 
 

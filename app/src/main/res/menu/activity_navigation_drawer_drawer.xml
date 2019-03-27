@@ -6,9 +6,14 @@
 
 
     <item
-        android:id="@+id/about_us"
+        android:id="@+id/profile"
         android:icon="@drawable/ic_info_black"
         android:title="Profile" />
+
+    <item
+        android:id="@+id/change_lang"
+        android:icon="@drawable/ic_language_black"
+        android:title="change language" />
 
     <item
         android:id="@+id/logout_button"
